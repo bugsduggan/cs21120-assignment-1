@@ -35,6 +35,10 @@ public class Graph {
 		return result;
 	}
 	
+	public boolean contains(String word) {
+		return wordMap.containsKey(word);
+	}
+	
 	private List<String> getWordList(String fileName) {
 		List<String> wordList = new LinkedList<String>();
 		File f = new File(fileName);
