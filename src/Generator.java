@@ -1,6 +1,5 @@
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Stack;
 
 
 public class Generator {
@@ -8,20 +7,28 @@ public class Generator {
 	private Graph graph;
 	
 	public List<String> generateLadder(String start, int depth) {
+		List<String> ladder = new LinkedList<String>();
+		if (depth == 0)
+			return ladder;
+		ladder.add(start);
 		graph = new Graph("dict" + start.length() + ".dat");
-		return findLadder(start, depth);
+		return findLadder(ladder, depth - 1);
 	}
 	
-	private List<String> findLadder(String start, int depth) {
-		List<String> ladder = new LinkedList<String>();
-		if (depth <= 0)
+	private List<String> findLadder(List<String> ladder, int depth) {
+		if (depth == 0)
 			return ladder;
 		
-		ladder.add(start);
-		if (ladder.size() == depth)
-			return ladder;
+		String current = ladder.get(ladder.size() - 1);
+		List<String> search = graph.getAdjacentWords(current);
 		
-		// MOAR CODEZ HERE PLOX
+		for (String s : search) {
+			if (!ladder.contains(s)) {
+				ladder.add(s);
+				findLadder(ladder, depth - 1);
+				break;
+			}
+		}
 		
 		return ladder;
 	}
