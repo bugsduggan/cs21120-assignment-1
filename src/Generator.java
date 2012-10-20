@@ -6,6 +6,7 @@ public class Generator {
 	
 	private Graph graph;
 	private int depth;
+	private List<String> visited;
 	
 	public List<String> generateLadder(String start, int depth) {
 		List<String> ladder = new LinkedList<String>();
@@ -14,7 +15,13 @@ public class Generator {
 		ladder.add(start);
 		graph = new Graph("dict" + start.length() + ".dat");
 		this.depth = depth;
-		return findLadder(ladder, depth - 1);
+		visited = new LinkedList<String>();
+		visited.add(start);
+		ladder = findLadder(ladder, depth - 1);
+		if (ladder.size() == 1 && depth != 1) {
+			return new LinkedList<String>();
+		}
+		return ladder;
 	}
 	
 	private List<String> findLadder(List<String> ladder, int toFind) {
@@ -24,9 +31,11 @@ public class Generator {
 		String current = ladder.get(ladder.size() - 1);
 		List<String> search = graph.getAdjacentWords(current);
 		search.removeAll(ladder);
+		search.removeAll(visited);
 		
 		for (String s : search) {
 			ladder.add(s);
+			visited.add(s);
 			findLadder(ladder, toFind - 1);
 			if (ladder.size() == depth)
 				break;
