@@ -1,9 +1,9 @@
-import java.util.Vector;
+import java.util.List;
 
 
 public class Generator {
 	
-	public Vector<String> getLadder(String start, int depth) {
+	public List<String> generateLadder(String start, int depth) {
 		return null;
 	}
 	

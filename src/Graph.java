@@ -4,7 +4,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Vector;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Graph {
 
@@ -12,7 +13,7 @@ public class Graph {
 	
 	public Graph(String fileName) {
 		wordMap = new HashMap<String, Node>();
-		Vector<String> wordList = getWordList(fileName);
+		List<String> wordList = getWordList(fileName);
 		
 		for (String word : wordList) {
 			Node newNode = new Node(word);
@@ -26,16 +27,16 @@ public class Graph {
 		}
 	}
 	
-	public Vector<String> getAdjacentWords(String word) {
-		Vector<String> result = new Vector<String>();
+	public List<String> getAdjacentWords(String word) {
+		List<String> result = new LinkedList<String>();
 		for (Node n : wordMap.get(word).getNodes()) {
 			result.add(n.getWord());
 		}
 		return result;
 	}
 	
-	private Vector<String> getWordList(String fileName) {
-		Vector<String> wordList = new Vector<String>();
+	private List<String> getWordList(String fileName) {
+		List<String> wordList = new LinkedList<String>();
 		File f = new File(fileName);
 		try {
 			BufferedReader in = new BufferedReader(new FileReader(f));
@@ -66,11 +67,11 @@ public class Graph {
 	private class Node {
 		
 		private String word;
-		private Vector<Node> nodes;
+		private List<Node> nodes;
 		
 		public Node(String word) {
 			this.word = word;
-			nodes = new Vector<Node>();
+			nodes = new LinkedList<Node>();
 		}
 		
 		public void addLink(Node n) {
@@ -81,7 +82,7 @@ public class Graph {
 			return word;
 		}
 		
-		public Vector<Node> getNodes() {
+		public List<Node> getNodes() {
 			return nodes;
 		}
 		
