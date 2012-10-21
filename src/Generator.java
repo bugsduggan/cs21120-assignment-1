@@ -1,22 +1,26 @@
+import graph.WordGraph;
+
 import java.util.LinkedList;
 import java.util.List;
 
 
 public class Generator {
 	
-	private Graph graph;
+	private WordGraph graph;
 	private int depth;
 	private List<String> visited;
 	
 	public List<String> generateLadder(String start, int depth) {
 		List<String> ladder = new LinkedList<String>();
-		if (depth <= 0)
+		graph = new WordGraph(start.length());
+		if (depth <= 0 || !graph.hasNode(start))
 			return ladder;
+		
 		ladder.add(start);
-		graph = new Graph("dict" + start.length() + ".dat");
 		this.depth = depth;
 		visited = new LinkedList<String>();
 		visited.add(start);
+		
 		ladder = findLadder(ladder, depth - 1);
 		if (ladder.size() == 1 && depth != 1) {
 			return new LinkedList<String>();
@@ -29,7 +33,7 @@ public class Generator {
 			return ladder;
 		
 		String current = ladder.get(ladder.size() - 1);
-		List<String> search = graph.getAdjacentWords(current);
+		List<String> search = graph.getConnected(current);
 		search.removeAll(ladder);
 		search.removeAll(visited);
 		

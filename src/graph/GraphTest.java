@@ -1,3 +1,4 @@
+package graph;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
@@ -5,17 +6,17 @@ import org.junit.Test;
 
 public class GraphTest {
 
-	private Graph graph = new Graph("dict5.dat");
+	private WordGraph graph = new WordGraph(5);
 	
 	@Test
 	public void testGetAdjacentWords() {
-		if(!graph.getAdjacentWords("clock").contains("click"))
+		if(!graph.getConnected("clock").contains("click"))
 			fail("click not adjacent to clock");
-		if(!graph.getAdjacentWords("click").contains("clock"))
+		if(!graph.getConnected("click").contains("clock"))
 			fail("clock not adjacent to click");
-		if(graph.getAdjacentWords("clock").contains("clock"))
+		if(graph.getConnected("clock").contains("clock"))
 			fail("clock is adjacent to clock");
-		if(graph.getAdjacentWords("clock").contains("shock"))
+		if(graph.getConnected("clock").contains("shock"))
 			fail("shock is adjacent to clock");
 	}
 
