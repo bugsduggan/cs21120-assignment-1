@@ -1,3 +1,5 @@
+package ladder;
+
 import graph.WordGraph;
 
 import java.util.LinkedList;
