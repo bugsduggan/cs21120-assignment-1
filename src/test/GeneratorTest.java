@@ -2,8 +2,6 @@ package test;
 
 import ladder.Generator;
 
-import java.util.Iterator;
-
 import static org.junit.Assert.*;
 import org.junit.Test;
 
@@ -21,11 +19,11 @@ public class GeneratorTest {
    */
   @Test
   public void testGenerateLadderLimits() {
-    if (sizeOfLadder(generator.generateLadder("home", -3)) != 0)
+    if (Utils.size(generator.generateLadder("home", -3)) != 0)
       fail("Providing a negative depth should return an empty list");
-    if (sizeOfLadder(generator.generateLadder("home", 0)) != 0)
+    if (Utils.size(generator.generateLadder("home", 0)) != 0)
       fail("Providing a zero depth should return an empty list");
-    if (sizeOfLadder(generator.generateLadder("home", Integer.MAX_VALUE)) != 0)
+    if (Utils.size(generator.generateLadder("home", Integer.MAX_VALUE)) != 0)
       fail("You've found a ladder from home to the point where Java's Long can't hold the number!?!");
   }
 
@@ -34,25 +32,12 @@ public class GeneratorTest {
    */
   @Test
   public void testGenerateLadderSimple() {
-    int result = sizeOfLadder(generator.generateLadder("head", 3));
+    int result = Utils.size(generator.generateLadder("head", 3));
     if (result != 3)
       fail("Expected depth of 3 but got " + result);
-    result = sizeOfLadder(generator.generateLadder("head", 20));
+    result = Utils.size(generator.generateLadder("head", 20));
     if (result != 20)
       fail("Expected depth of 20 but got " + result);
-  }
-
-  /**
-   * get the size of the ladder
-   */
-  private int sizeOfLadder(Iterable<String> ladder) {
-    int result = 0;
-    Iterator<String> iter = ladder.iterator();
-    while (iter.hasNext()) {
-      String dontCare = iter.next();
-      result++;
-    }
-    return result;
   }
 
 }
