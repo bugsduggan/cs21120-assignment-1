@@ -22,6 +22,7 @@ class Utils {
     int result = 0;
     Iterator<String> iter = ladder.iterator();
     while (iter.hasNext()) {
+      @SuppressWarnings("unused")
       String dontCare = iter.next();
       result++;
     }
