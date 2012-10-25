@@ -64,11 +64,11 @@ public class Discoverer {
     }
 
     String current = end;
-    if (parents.get(current) == null)
+    if (!parents.containsKey(current))
       return ladder; // We're out of ideas
     ladder.add(current);
     // Now work backwards through the parents map
-    while (parents.get(current) != null) {
+    while (!parents.containsKey(current)) {
       current = parents.get(current);
       ladder.add(current);
     }
