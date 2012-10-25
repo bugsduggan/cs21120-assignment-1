@@ -3,13 +3,29 @@ import ladder.*;
 
 import java.util.Scanner;
 
+/**
+ * The Driver processes user input and generates a response.
+ *
+ * It has two main modes of operation, 1) Interactive: The program offers the
+ * user a choice of modes, gathers data and generates a ladder. 2) CLI args:
+ * the mode and initialisation data are presented as arguments to the main
+ * function.
+ *
+ * @author Tom Leaman (thl5@aber.ac.uk)
+ */
 public class Driver {
 
+  /**
+   * The main entry point of the program
+   *
+   * This method decides whether we are running interactively or not and then
+   * delegates the users' task to helper functions.
+   */
   public static void main(String[] args) {
-    if (args.length == 0)
+    if (args.length <= 0)
       startInteractive();
 
-    if (args.length != 3)
+    if (args[0].equalsIgnoreCase("h") || args.length != 3)
       printUsage();
 
     String flag = args[0];
@@ -24,6 +40,12 @@ public class Driver {
       printUsage();
   }
 
+  /**
+   * Runs the driver interactively
+   *
+   * Presents a menu to the user and collects initialisation data for the
+   * ladder generation function call.
+   */
   private static void startInteractive() {
     System.out.println("Interactive Mode");
     System.out.println();
@@ -69,6 +91,9 @@ public class Driver {
     System.exit(0);
   }
 
+  /**
+   * Generates a ladder from a start word and depth
+   */
   private static void generateLadder(String start, int depth) {
     System.out.println("Generating Ladder");
     System.out.println();
@@ -79,6 +104,9 @@ public class Driver {
       System.out.println(word);
   }
 
+  /**
+   * Discovers the shortest path between two words
+   */
   private static void discoverLadder(String start, String end) {
     System.out.println("Discovering Ladder");
     System.out.println();
@@ -89,10 +117,14 @@ public class Driver {
       System.out.println(word);
   }
 
+  /**
+   * Prints usage tips for both modes
+   */
   private static void printUsage() {
     System.out.println("USAGE:");
     System.out.println("  java Driver g <word> <depth>");
     System.out.println("  java Driver d <word> <word>");
+    System.out.println("  java Driver h                (prints this text)");
     System.exit(1);
   }
 
