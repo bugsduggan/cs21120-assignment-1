@@ -9,18 +9,31 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * WordGraph is a specific implementation of an AbstractGraph
+ *
+ * It will read in wordlists of the form <code>dictX.dat</code> where X is the
+ * number of letters in each word (one word per line)
+ *
+ * @author Tom Leaman (thl5@aber.ac.uk)
+ */
 public class WordGraph extends AbstractGraph<String> {
 
+  /**
+   * Construct a WordGraph using <code>numLetters</code> length words
+   *
+   * @param numLetters the size of words used to populate the graph
+   */
   public WordGraph(int numLetters) {
     try {
-        String fileName = "dict" + numLetters + ".dat";
-        List<String> wordList = getWordList(fileName);
+      String fileName = "dict" + numLetters + ".dat";
+      List<String> wordList = getWordList(fileName);
 
       for (String word : wordList) {
         addNode(word);
-        for (String comparison : nodeSet()) {
-          if (oneDifference(word, comparison))
-            addEdge(word, comparison);
+        for (String comparison : nodeSet()) { // for each previously found word
+          if (oneDifference(word, comparison)) // if it's one letter different
+            addEdge(word, comparison); // add edge (both directions)
         }
       }
     } catch (FileNotFoundException e) {
@@ -30,6 +43,13 @@ public class WordGraph extends AbstractGraph<String> {
     }
   }
 
+  /**
+   * Pulls in data from a dictionary file
+   *
+   * @param fileName the name of the file
+   * @return         the list of words in the file
+   * @throws FileNotFoundException
+   */
   private List<String> getWordList(String fileName) throws FileNotFoundException {
     List<String> wordList = new LinkedList<String>();
     File f = new File(fileName);
@@ -49,6 +69,12 @@ public class WordGraph extends AbstractGraph<String> {
     return wordList;
   }
 
+  /**
+   * Compares two Strings, returns true if they differ by only one letter
+   *
+   * @param a
+   * @param b
+   */
   private boolean oneDifference(String a, String b) {
     int diffs = 0;
     for (int i = 0; (diffs <= 1) && (i < a.length()); i++) {

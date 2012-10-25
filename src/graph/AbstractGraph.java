@@ -6,10 +6,21 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * This is the default implementation of a generic graph structure
+ *
+ * It is currently non-directional but overriding <code>addEdge</code> and
+ * <code>removeEdge</code> should be all one needs to do to make the graph directional
+ *
+ * @author Tom Leaman (thl5@aber.ac.uk)
+ */
 public abstract class AbstractGraph<T> implements Graph<T> {
 
-  protected Map<T, List<T>> map;
+  private Map<T, List<T>> map;
 
+  /**
+   * Default constructor
+   */
   public AbstractGraph() {
     map = new HashMap<T, List<T>>();
   }
