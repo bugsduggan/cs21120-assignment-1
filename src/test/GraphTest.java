@@ -1,5 +1,6 @@
-package graph;
+package test;
 import static org.junit.Assert.*;
+import graph.WordGraph;
 
 import org.junit.Test;
 
