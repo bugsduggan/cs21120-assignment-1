@@ -43,10 +43,18 @@ a hashing function.
 I decided to try to use a simplified version of Dijkstra's algorithm to find
 the shortest path between two nodes. I found a much more complete version of
 the algorithm in Java (link in source) and modified its design for this task.
+I found this task incredibly challenging and so I thought a little less long
+and hard about the data structues I was using here. I have still maintained
+the principal of coding to an Interface rather than a class, however.
 
 \section*{Algorithm Explaination}
 
 \subsection*{Building the graph}
+I kept the design of the graph structure as simple as possible, it simply maps
+a String to a List<String> which are pointers to other nodes in the graph. These
+are calculated when the graph is first built by reading in a file and then checking
+each word as it's entered against all the other words in the graph. Strings which
+are exactly one character different will be added to each other's List.
 
 \subsection*{Generator}
 
@@ -55,8 +63,44 @@ the algorithm in Java (link in source) and modified its design for this task.
 \newpage
 \section*{Source Code}
 
-\subsection*{ClassName.java}
-\verbatiminput{../src/package/ClassName.java}
+\subsection*{Driver.java}
+\verbatiminput{src/ui/Driver.java}
+\newpage
+
+\subsection*{Graph.java}
+\verbatiminput{src/graph/Graph.java}
+\newpage
+
+\subsection*{AbstractGraph.java}
+\verbatiminput{src/graph/AbstractGraph.java}
+\newpage
+
+\subsection*{WordGraph.java}
+\verbatiminput{src/graph/WordGraph.java}
+\newpage
+
+\subsection*{Generator.java}
+\verbatiminput{src/ladder/Generator.java}
+\newpage
+
+\subsection*{Discoverer.java}
+\verbatiminput{src/ladder/Discoverer.java}
+\newpage
+
+\subsection*{GraphTest.java}
+\verbatiminput{src/test/GraphTest.java}
+\newpage
+
+\subsection*{GeneratorTest.java}
+\verbatiminput{src/test/GeneratorTest.java}
+\newpage
+
+\subsection*{DiscovererTest.java}
+\verbatiminput{src/test/DiscovererTest.java}
+\newpage
+
+\subsection*{Utils.java}
+\verbatiminput{src/test/Utils.java}
 \newpage
 
 \section*{Example Output}
