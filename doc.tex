@@ -1,4 +1,4 @@
-\documentclass[titlepage, a4paper, twoside]{article}
+\documentclass[12pt, titlepage, a4paper, twoside]{article}
 
 \usepackage{graphicx}
 \usepackage{verbatim}
@@ -9,18 +9,48 @@
 
 \renewcommand{\familydefault}{\sfdefault}
 
-\title{TITLE HERE}
+\title{Word Play}
 \author{Tom Leaman}
 
 \begin{document}
 \maketitle
 
-\section*{}
+\section*{Design}
 
-\subsection*{}
-#\begin{center}
-#\includegraphics[scale=0.70]{useCase.png}
-#\end{center}
+\subsection*{UML Diagram}
+%\begin{center}
+%\includegraphics[scale=0.70]{useCase.png}
+%\end{center}
+
+\subsection*{Design Justification}
+I have tried, where possible, to declare my variables using the type of an
+Interface rather than a concrete type. This improves the loose coupling of
+various classes.
+With that in mind, I also developed the graph data structure as an Interface,
+using generic type definitions. This means that, should the implementation of
+the graph change at a later date, the code should not break entirely.
+
+\subsubsection*{Generator}
+I decided to implement the Generation task recursively, to produce a depth
+first search. I decided to make use of a LinkedList for the ladder itself as
+nodes were going to be added and removed a lot as the program searched the graph.
+I used a HashSet to store nodes that had already been visited. Since this structure
+is really only used to store entries and then do look-ups, it should benefit
+from better performance (especially on large data sets) due to its use of
+a hashing function.
+
+\subsubsection*{Discoverer}
+I decided to try to use a simplified version of Dijkstra's algorithm to find
+the shortest path between two nodes. I found a much more complete version of
+the algorithm in Java (link in source) and modified its design for this task.
+
+\section*{Algorithm Explaination}
+
+\subsection*{Building the graph}
+
+\subsection*{Generator}
+
+\subsection*{Discoverer}
 
 \newpage
 \section*{Source Code}
@@ -30,5 +60,7 @@
 \newpage
 
 \section*{Example Output}
+
+% three examples for each mode
 
 \end{document}
