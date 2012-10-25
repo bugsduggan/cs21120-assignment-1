@@ -2,8 +2,10 @@ package ladder;
 
 import graph.WordGraph;
 
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Generator find a 'random' ladder of a given depth (if available) by
@@ -15,7 +17,7 @@ public class Generator {
 
   private WordGraph graph;
   private int depth;
-  private List<String> visited;
+  private Set<String> visited;
 
   /**
    * Default constructor
@@ -39,7 +41,7 @@ public class Generator {
     // init some useful things
     ladder.add(start);
     this.depth = depth;
-    visited = new LinkedList<String>();
+    visited = new HashSet<String>();
     visited.add(start);
 
     // go forth and find me a ladder!
