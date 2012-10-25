@@ -1,0 +1,34 @@
+\documentclass[titlepage, a4paper, twoside]{article}
+
+\usepackage{graphicx}
+\usepackage{verbatim}
+
+\setlength{\oddsidemargin}{0in} \setlength{\evensidemargin}{0in}
+\setlength{\textwidth}{6.2in}
+\setlength{\topmargin}{-0.3in} \setlength{\textheight}{9.8in}
+
+\renewcommand{\familydefault}{\sfdefault}
+
+\title{TITLE HERE}
+\author{Tom Leaman}
+
+\begin{document}
+\maketitle
+
+\section*{}
+
+\subsection*{}
+#\begin{center}
+#\includegraphics[scale=0.70]{useCase.png}
+#\end{center}
+
+\newpage
+\section*{Source Code}
+
+\subsection*{ClassName.java}
+\verbatiminput{../src/package/ClassName.java}
+\newpage
+
+\section*{Example Output}
+
+\end{document}
