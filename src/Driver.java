@@ -15,6 +15,8 @@ import java.util.Scanner;
  */
 public class Driver {
 
+  private Driver() {} // Do nothing
+
   /**
    * The main entry point of the program
    *
