@@ -49,4 +49,11 @@ public class Generator {
 		return ladder;
 	}
 	
+	public static void main(String[] args) {
+		Generator g = new Generator();
+		List<String> ladder = g.generateLadder("click", 100);
+		for (int i = 0; i < ladder.size(); i++)
+			System.out.println((i + 1) + " - " + ladder.get(i));
+	}
+	
 }

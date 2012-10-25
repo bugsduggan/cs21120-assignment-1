@@ -1,16 +1,17 @@
 import graph.WordGraph;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-import java.util.Queue;
-
 
 public class Discoverer {
 
-	private WordGraph graph;
-	
+  private WordGraph graph;
+  private List<String> unvisited;
+  private HashMap<String, Integer> costs;
+  private HashMap<String, String> predecessors;
+
 	public List<String> discoverLadder(String start, String end) {
 		
 		List<String> ladder = new LinkedList<String>();
@@ -22,30 +23,67 @@ public class Discoverer {
 			return ladder;
 		
 		// end of variable declarations and sanity-checks
-		
-		Queue<String> search = new LinkedList<String>();
-		Map<String, Integer> cost = new HashMap<String, Integer>();		
-		
-		search.add(start);
-		cost.put(start, 0);
-		while (!search.isEmpty()) {
-			String current = search.remove();
-			if (end.equals(current)) {
-				ladder.add(current);
-				return ladder;
-			}
-			List<String> next = graph.getConnected(current);
-			next.removeAll(cost.keySet());
-			search.addAll(next);
-			
-			for (String s : next) {
-				cost.put(s, cost.get(current) + 1);
-			}
+
+		List<String> visited = new LinkedList<String>();
+		unvisited = new LinkedList<String>();
+		costs = new HashMap<String, Integer>();
+		predecessors = new HashMap<String, String>();
+		costs.put(start, 0);
+		unvisited.add(start);
+		while (!unvisited.isEmpty()) {
+			String current = getMinimum(unvisited);
+			visited.add(current);
+			unvisited.remove(current);
+			findMinimalDistance(current);
+		}
+
+		String current = end;
+		if (predecessors.get(current) == null)
+		  return null;
+		ladder.add(current);
+		while (predecessors.get(current) != null) {
+			current = predecessors.get(current);
+			ladder.add(current);
 		}
 		
+		Collections.reverse(ladder);
 		return ladder;
 	}
-	
+
+	private void findMinimalDistance(String word) {
+		List<String> next = graph.getConnected(word);
+		for (String n : next) {
+		  if (shortestPath(n) > shortestPath(word) + 1) {
+				costs.put(n, shortestPath(word) + 1);
+				predecessors.put(n, word);
+				unvisited.add(n);
+		  }
+		}
+	}
+
+	private String getMinimum(List<String> next) {
+		String min = null;
+		for (String s : next) {
+		  if (min == null) {
+		    min = s;
+		  } else {
+		    if (shortestPath(s) < shortestPath(min)) {
+				  min = s;
+				}
+		  }
+		}
+		return min;
+  }
+
+	private int shortestPath(String word) {
+		Integer d = costs.get(word);
+		if (d == null) {
+		  return Integer.MAX_VALUE;
+		} else {
+		  return d;
+		}
+  }
+
 	public static void main(String[] args) {
 		Discoverer d = new Discoverer();
 		List<String> ladder = d.discoverLadder("head", "foot");
