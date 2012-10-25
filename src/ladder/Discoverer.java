@@ -6,13 +6,24 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
+/**
+ * Discoverer finds the shortest path between two words of equal length.
+ *
+ * This is based on Dijkstra's algorithm and code samples from
+ * http://www.vogella.com/articles/JavaAlgorithmsDijkstra/article.html
+ *
+ * @author Tom Leaman (thl5@aber.ac.uk)
+ */
 public class Discoverer {
 
   private WordGraph graph;
   private List<String> unvisited;
-  private HashMap<String, Integer> costs;
-  private HashMap<String, String> predecessors;
+  private Map<String, Integer> costs;
+  private Map<String, String> predecessors;
+
+  private Discoverer() {} // Do nothing
 
   /**
    * The main entry-point for this class.
@@ -24,7 +35,7 @@ public class Discoverer {
    * @param end   the last word of the ladder
    * @return      the full word ladder
    */
-  public List<String> discoverLadder(String start, String end) {
+  public Iterable<String> discoverLadder(String start, String end) {
 
     List<String> ladder = new LinkedList<String>();
     if (start.length() != end.length())
@@ -115,13 +126,6 @@ public class Discoverer {
     } else {
       return d;
     }
-  }
-
-  public static void main(String[] args) {
-    Discoverer d = new Discoverer();
-    List<String> ladder = d.discoverLadder("head", "foot");
-    for (String s : ladder)
-      System.out.println(s);
   }
 
 }
