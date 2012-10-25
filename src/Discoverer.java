@@ -13,15 +13,15 @@ public class Discoverer {
   private HashMap<String, String> predecessors;
 
   public List<String> discoverLadder(String start, String end) {
-    
+
     List<String> ladder = new LinkedList<String>();
     if (start.length() != end.length())
       return ladder;
-    
+
     graph = new WordGraph(start.length());
     if (!graph.hasNode(start) || !graph.hasNode(end))
       return ladder;
-    
+
     // Init some extra structures to track progress
     unvisited = new LinkedList<String>();
     costs = new HashMap<String, Integer>();
@@ -88,7 +88,7 @@ public class Discoverer {
 
   public static void main(String[] args) {
     Discoverer d = new Discoverer();
-    List<String> ladder = d.discoverLadder("click", "stabs");
+    List<String> ladder = d.discoverLadder("head", "foot");
     for (String s : ladder)
       System.out.println(s);
   }
