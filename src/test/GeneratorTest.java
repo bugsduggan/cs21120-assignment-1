@@ -48,8 +48,10 @@ public class GeneratorTest {
   private int sizeOfLadder(Iterable<String> ladder) {
     int result = 0;
     Iterator<String> iter = ladder.iterator();
-    while (iter.hasNext())
+    while (iter.hasNext()) {
+      String dontCare = iter.next();
       result++;
+    }
     return result;
   }
 
