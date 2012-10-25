@@ -12,6 +12,16 @@ public class Discoverer {
   private HashMap<String, Integer> costs;
   private HashMap<String, String> predecessors;
 
+  /**
+   * The main entry-point for this class.
+   *
+   * Returns a word ladder from start to end if one is available
+   * otherwise, returns an empty list.
+   *
+   * @param start the first word of the ladder
+   * @param end   the last word of the ladder
+   * @return      the full word ladder
+   */
   public List<String> discoverLadder(String start, String end) {
 
     List<String> ladder = new LinkedList<String>();
@@ -52,24 +62,36 @@ public class Discoverer {
     return ladder;
   }
 
+  /**
+   * This checks all of the words in the set of nodes connected to it
+   * and updates the costs map.
+   *
+   * @param word
+   */
   private void findMinimalDistance(String word) {
     List<String> next = graph.getConnected(word);
     for (String n : next) {
-      if (shortestPath(n) > shortestPath(word) + 1) {
-        costs.put(n, shortestPath(word) + 1);
+      if (pathCost(n) > pathCost(word) + 1) {
+        costs.put(n, pathCost(word) + 1);
         predecessors.put(n, word);
         unvisited.add(n);
       }
     }
   }
 
+  /**
+   * This returns the word in the list with the lowest cost.
+   *
+   * @param next the list of words to search through
+   * @return     the word with the lowest cost
+   */
   private String getMinimum(List<String> next) {
     String min = null;
     for (String s : next) {
       if (min == null) {
         min = s;
       } else {
-        if (shortestPath(s) < shortestPath(min)) {
+        if (pathCost(s) < pathCost(min)) {
           min = s;
         }
       }
@@ -77,7 +99,14 @@ public class Discoverer {
     return min;
   }
 
-  private int shortestPath(String word) {
+  /**
+   * Returns the cost to this node.
+   * Initialises to Integer.MAX_VALUE
+   *
+   * @param word
+   * @return     the cost to this node
+   */
+  private int pathCost(String word) {
     Integer d = costs.get(word);
     if (d == null) {
       return Integer.MAX_VALUE;
