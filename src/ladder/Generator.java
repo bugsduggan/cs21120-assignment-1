@@ -17,7 +17,10 @@ public class Generator {
   private int depth;
   private List<String> visited;
 
-  private Generator() {} // Do nothing
+  /**
+   * Default constructor
+   */
+  public Generator() {} // Do nothing
 
   /**
    * Returns a ladder of the specified depth starting with <code>word</code> if

@@ -23,7 +23,10 @@ public class Discoverer {
   private Map<String, Integer> costs;
   private Map<String, String> predecessors;
 
-  private Discoverer() {} // Do nothing
+  /**
+   * Default constructor
+   */
+  public Discoverer() {} // Do nothing
 
   /**
    * The main entry-point for this class.
