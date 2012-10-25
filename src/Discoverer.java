@@ -1,7 +1,10 @@
 import graph.WordGraph;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.Queue;
 
 
 public class Discoverer {
@@ -20,25 +23,24 @@ public class Discoverer {
 		
 		// end of variable declarations and sanity-checks
 		
-		ladder.add(start);
-		ladder = findLadder(ladder, end);
+		Queue<String> search = new LinkedList<String>();
+		Map<String, Integer> cost = new HashMap<String, Integer>();		
 		
-		return ladder;
-	}
-
-	private List<String> findLadder(List<String> ladder, String end) {
-		String current = ladder.get(ladder.size() - 1);
-		if (end.equals(current))
-			return ladder; // job done
-		
-		List<String> search = graph.getConnected(current);
-		search.removeAll(ladder);
-		for (String s : search) {
-			ladder.add(s);
-			findLadder(ladder, end);
-			if (ladder.contains(end))
-				break;
-			ladder.remove(ladder.size() - 1);
+		search.add(start);
+		cost.put(start, 0);
+		while (!search.isEmpty()) {
+			String current = search.remove();
+			if (end.equals(current)) {
+				ladder.add(current);
+				return ladder;
+			}
+			List<String> next = graph.getConnected(current);
+			next.removeAll(cost.keySet());
+			search.addAll(next);
+			
+			for (String s : next) {
+				cost.put(s, cost.get(current) + 1);
+			}
 		}
 		
 		return ladder;
