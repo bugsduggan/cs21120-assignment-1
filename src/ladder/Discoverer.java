@@ -63,8 +63,12 @@ public class Discoverer {
       getNextCosts(current);
     }
 
+    // We've mapped the space relative to the start word now
+    // and stored it as a map from a word to its 'lowest cost'
+    // parent node
+
     String current = end;
-    if (!parents.containsKey(current))
+    if (!parents.containsKey(current)) // The node has no connection
       return ladder;
     ladder.add(current);
     // Now work backwards through the parents map

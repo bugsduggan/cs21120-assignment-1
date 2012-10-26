@@ -1,4 +1,4 @@
-\documentclass[12pt, titlepage, a4paper, twoside]{article}
+\documentclass[12pt, titlepage, a4paper, oneside]{article}
 
 \usepackage{graphicx}
 \usepackage{verbatim}
@@ -64,19 +64,54 @@ Here is the pseudo code for the recursive function:
 \begin{verbatim}
   def search( ladder, toFind ):
     if toFind == 0 return;
-  Node current = ladder.getLast()
-  List<Node> next = graph.getConnected( current )
-  next.remove( ladder, visited )
-  for nextWord in next:
-    ladder.add( nextWord )
-    visited.add( nextWord )
-    search( ladder, toFind - 1 )
-    if ( ladder.length() == requiredDepth )
-      return ladder
-    ladder.removeLast()
+
+    Node current = ladder.getLast()
+    List<Node> next = graph.getConnected( current )
+    next.remove( ladder, visited )
+    // now we try every node we can reach
+    for nextWord in next:
+      ladder.add( nextWord )
+      visited.add( nextWord )
+      search( ladder, toFind - 1 )
+      if ( ladder.length() == requiredDepth )
+        return ladder
+      // unsuccessful so we remove whatever we just tried
+      ladder.removeLast() 
 \end{verbatim}
 
 \subsection*{Discoverer}
+This algorithm works in 2 stages, first it traverses the graph and builds a map
+that points from a node to its lowest cost parent node.
+\begin{verbatim}
+  Graph g
+  List unvisited, ladder
+  Map costs, parents
+
+  costs.put( firstWord, 0 )
+  unvisited.add( firstWord )
+  while ( unvisited !empty ):
+    String current = getLowestCostNode( unvisited )
+    unvisited.remove(current)
+    // update / add values for the nodes we can reach from current
+    // in parents and costs
+    updateCosts( graph.getConnected( current ))
+    updateParents( graph.getConnected( current ))
+\end{verbatim}
+
+\par
+The program then simply reads backwards through the map, starting with the target
+word and storing each subsequent parent into the ladder until no parent can be
+found. This indicates that we've found the start node and can return a
+reversed list.
+\begin{verbatim}
+  String current = end
+  if ( !hasParents( current )) return emptyLadder // no path can be found
+  ladder.add( current )
+  while ( hasParents( current )):
+    current = parents.get( current ) // get the lowest cost parent
+    ladder.add( current ) // add it to the ladder
+  return reverse( ladder )
+\end{verbatim}
 
 \newpage
 \section*{Source Code}
