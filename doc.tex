@@ -57,6 +57,24 @@ each word as it's entered against all the other words in the graph. Strings whic
 are exactly one character different will be added to each other's List.
 
 \subsection*{Generator}
+The generateLadder function provides a wrapper that handles the recursive method
+and cleans up the failure state a little before returning.
+
+Here is the pseudo code for the recursive function:
+\begin{verbatim}
+  def search( ladder, toFind ):
+    if toFind == 0 return;
+  Node current = ladder.getLast()
+  List<Node> next = graph.getConnected( current )
+  next.remove( ladder, visited )
+  for nextWord in next:
+    ladder.add( nextWord )
+    visited.add( nextWord )
+    search( ladder, toFind - 1 )
+    if ( ladder.length() == requiredDepth )
+      return ladder
+    ladder.removeLast()
+\end{verbatim}
 
 \subsection*{Discoverer}
 
@@ -105,6 +123,18 @@ are exactly one character different will be added to each other's List.
 
 \section*{Example Output}
 
-% three examples for each mode
+\subsection*{Generator}
+\verbatiminput{gtest1}
+\par
+\verbatiminput{gtest2}
+\par
+\verbatiminput{gtest3}
+
+\subsection*{Discoverer}
+\verbatiminput{dtest1}
+\par
+\verbatiminput{dtest2}
+\par
+\verbatiminput{dtest3}
 
 \end{document}
