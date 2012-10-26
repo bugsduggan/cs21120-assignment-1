@@ -21,7 +21,7 @@ public class Discoverer {
   private WordGraph graph;
   private List<String> unvisited;
   private Map<String, Integer> costs;
-  private Map<String, String> predecessors;
+  private Map<String, String> parents;
 
   /**
    * Default constructor
@@ -51,7 +51,7 @@ public class Discoverer {
     // Init some extra structures to track progress
     unvisited = new LinkedList<String>();
     costs = new HashMap<String, Integer>();
-    predecessors = new HashMap<String, String>();
+    parents = new HashMap<String, String>();
     costs.put(start, 0);
     unvisited.add(start);
 
@@ -60,20 +60,20 @@ public class Discoverer {
       String current = getMinimum(unvisited);
       unvisited.remove(current);
       // Update the cost for the node being searched
-      findMinimalDistance(current);
+      getNextCosts(current);
     }
 
     String current = end;
-    if (predecessors.get(current) == null)
-      return ladder; // We're out of ideas
+    if (!parents.containsKey(current))
+      return ladder;
     ladder.add(current);
-    // Now work backwards through the predecessors map
-    while (predecessors.get(current) != null) {
-      current = predecessors.get(current);
+    // Now work backwards through the parents map
+    while (parents.containsKey(current)) {
+      current = parents.get(current);
       ladder.add(current);
     }
 
-    // Since we traversed predecessors backwards, we need to reverse the ladder
+    // Since we traversed parents backwards, we need to reverse the ladder
     Collections.reverse(ladder);
     return ladder;
   }
@@ -84,12 +84,12 @@ public class Discoverer {
    *
    * @param word
    */
-  private void findMinimalDistance(String word) {
+  private void getNextCosts(String word) {
     List<String> next = graph.getConnected(word);
     for (String n : next) {
       if (pathCost(n) > pathCost(word) + 1) {
         costs.put(n, pathCost(word) + 1);
-        predecessors.put(n, word);
+        parents.put(n, word);
         unvisited.add(n);
       }
     }
