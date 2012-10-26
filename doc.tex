@@ -45,10 +45,10 @@ I decided to try to use a simplified version of Dijkstra's algorithm to find
 the shortest path between two nodes. I found a much more complete version of
 the algorithm in Java (link in source) and modified its design for this task.
 I found this task incredibly challenging and so I thought a little less long
-and hard about the data structues I was using here. I have still maintained
+and hard about the data structures I was using here. I have still maintained
 the principal of coding to an Interface rather than a class, however.
 
-\section*{Algorithm Explaination}
+\section*{Algorithm Explanation}
 
 \subsection*{Building the graph}
 I kept the design of the graph structure as simple as possible, it simply maps
@@ -102,7 +102,7 @@ that points from a node to its lowest cost parent node.
 \par
 The program then simply reads backwards through the map, starting with the target
 word and storing each subsequent parent into the ladder until no parent can be
-found. This indicates that we've found the start node and can return a
+found. This indicates that we have found the start node and can return a
 reversed list.
 \begin{verbatim}
   String current = end
